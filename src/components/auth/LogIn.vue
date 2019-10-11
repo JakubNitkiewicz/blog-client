@@ -7,12 +7,11 @@
         </v-toolbar>
         <v-card-text>
           <v-form>
-            <v-text-field id="email" v-model="email" :rules="emailRules" label="Email" required></v-text-field>
+            <v-text-field id="email" v-model="email" label="Email" required></v-text-field>
 
             <v-text-field
               id="password"
               v-model="password"
-              :rules="passwordRules"
               label="Hasło"
               type="password"
               required
@@ -21,7 +20,7 @@
         </v-card-text>
         <v-card-actions>
           <div class="flex-grow-1"></div>
-          <v-btn color="primary">Zaloguj</v-btn>
+          <v-btn color="primary" @click="login()">Zaloguj</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -30,6 +29,20 @@
 
 <script>
   export default {
-
+    data() {
+      return {
+        email: 'nitek@example.com',
+        password: '12345678'
+      }
+    },
+    methods: {
+      login() {
+        const formData = {
+          email: this.email,
+          password: this.password
+        }
+        this.$store.dispatch('login', { email: this.email, password: this.password, router: this.$router })
+      }
+    }
   }
 </script>

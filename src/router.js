@@ -34,8 +34,13 @@ export default new Router({
     },
     {
       path: '/login',
-      name: 'logIn',
-      component: () => import('./components/auth/LogIn.vue')
+      name: 'login',
+      component: () => import('./components/auth/Login.vue')
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () => import('./components/auth/Logout.vue')
     },
     {
       path: '/signup',
