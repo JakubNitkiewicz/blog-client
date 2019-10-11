@@ -5,16 +5,18 @@
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="text-left">Username</th>
+            <th class="text-left">Nazwa</th>
             <th class="text-left">ID</th>
+            <th class="text-left">Data dołączenia</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="user in users" :key="user.id">
             <td>
-              <router-link :to="`/user/${user.id}`">{{ user.username }}</router-link>
+              <router-link class="text--default" :to="`/user/${user.id}`">{{ user.username }}</router-link>
             </td>
             <td>{{ user.id }}</td>
+            <td>{{ user.createdAt }}</td>
           </tr>
         </tbody>
       </template>
