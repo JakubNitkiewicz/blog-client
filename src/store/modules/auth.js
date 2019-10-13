@@ -4,23 +4,20 @@ import Cookies from 'js-cookie'
 const state = {}
 
 const mutations = {
-  authUser(state, userData) {
+  storeUser(state, userData) {
     console.log(userData)
     Cookies.set('token', userData.token, { expires: 30 })
     Cookies.set('refreshToken', userData.refreshToken, { expires: 30 })
     Cookies.set('userId', userData.id, { expires: 30 })
+    Cookies.set('username', userData.username, { expires: 30 })
   },
   removeUser(state) {
     Cookies.remove('token')
     Cookies.remove('refreshToken')
     Cookies.remove('userId')
-  },
-  storeUser(state, user) {
-    state.user = user
+    Cookies.remove('username')
   }
 }
-
-import router from 'vue-router'
 
 const actions = {
   login({ commit, dispatch }, payload) {
@@ -32,10 +29,11 @@ const actions = {
       })
       .then((response) => {
         console.log(response)
-        commit('authUser', {
+        commit('storeUser', {
           token: response.data.token,
           refreshToken: response.data.refreshToken,
-          id: response.data.id
+          id: response.data.id,
+          username: response.data.username
         })
         const router = payload.router
         router.push('/')
@@ -49,14 +47,31 @@ const actions = {
     router.push('/')
     router.go()
   },
-  signup({ commit }, authData) {
+  signup({ commit }, payload) {
     const url = 'auth/signup'
+    axiosApi
+      .post(url, {
+        username: payload.username,
+        email: payload.email,
+        password: payload.password
+      })
+      .then((response) => {
+        commit('storeUser', {
+          token: response.data.token,
+          refreshToken: response.data.refreshToken,
+          id: response.data.id,
+          username: response.data.username
+        })
+        const router = payload.router
+        router.push('/')
+        router.go()
+      })
   }
 }
 
 const getters = {
   username(state) {
-    return 'test hardcoded'
+    return Cookies.get('username')
   },
   userId(state) {
     return Cookies.get('userId')
