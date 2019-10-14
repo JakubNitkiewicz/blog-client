@@ -2,7 +2,7 @@
   <div>
     <router-link to="/user">Back to users</router-link>
     <h1>{{ user.username }}</h1>
-    <p>{{ user.id }} {{ user.email }}</p>
+    <p>{{ user }}</p>
   </div>
 </template>
 

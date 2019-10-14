@@ -62,6 +62,22 @@ const actions = {
         router.push('/')
         router.go()
       })
+  },
+  checkAuthentication({ commit }) {
+    const url = 'auth/refresh'
+    axiosApi
+      .post(url)
+      .then((response) => {
+        commit('storeUser', {
+          token: response.data.token,
+          refreshToken: response.data.refreshToken,
+          id: response.data.id,
+          username: response.data.username
+        })
+      })
+      .catch((error) => {
+        commit('removeUser')
+      })
   }
 }
 
