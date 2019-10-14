@@ -1,17 +1,17 @@
 import axiosApi from '../../axios-api'
 import Cookies from 'js-cookie'
+import router from '../../router'
 
 const state = {}
 
 const mutations = {
   storeUser(state, userData) {
-    console.log(userData)
     Cookies.set('token', userData.token, { expires: 30 })
     Cookies.set('refreshToken', userData.refreshToken, { expires: 30 })
     Cookies.set('userId', userData.id, { expires: 30 })
     Cookies.set('username', userData.username, { expires: 30 })
   },
-  removeUser(state) {
+  removeUser() {
     Cookies.remove('token')
     Cookies.remove('refreshToken')
     Cookies.remove('userId')
@@ -20,7 +20,7 @@ const mutations = {
 }
 
 const actions = {
-  login({ commit, dispatch }, payload) {
+  login({ commit }, payload) {
     const url = 'auth/signin'
     axiosApi
       .post(url, {
@@ -28,22 +28,19 @@ const actions = {
         password: payload.password
       })
       .then((response) => {
-        console.log(response)
         commit('storeUser', {
           token: response.data.token,
           refreshToken: response.data.refreshToken,
           id: response.data.id,
           username: response.data.username
         })
-        const router = payload.router
         router.push('/')
         router.go()
       })
       .catch((err) => console.log(err))
   },
-  logout({ commit }, payload) {
+  logout({ commit }) {
     commit('removeUser')
-    const router = payload.router
     router.push('/')
     router.go()
   },
@@ -62,7 +59,6 @@ const actions = {
           id: response.data.id,
           username: response.data.username
         })
-        const router = payload.router
         router.push('/')
         router.go()
       })
@@ -70,14 +66,13 @@ const actions = {
 }
 
 const getters = {
-  username(state) {
+  username() {
     return Cookies.get('username')
   },
-  userId(state) {
+  userId() {
     return Cookies.get('userId')
   },
-  isAuthenticated(state) {
-    console.log(Cookies.get('token'))
+  isAuthenticated() {
     return Cookies.get('token') != null
   }
 }

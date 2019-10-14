@@ -131,9 +131,6 @@
           }]
         }
       }
-    },
-    mounted() {
-      console.log(this.$store.getters.isAuthenticated)
     }
   }
 </script>
