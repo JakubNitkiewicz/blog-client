@@ -64,20 +64,13 @@ const actions = {
       })
   },
   checkAuthentication({ commit }) {
-    const url = 'auth/refresh'
-    axiosApi
-      .post(url)
-      .then((response) => {
-        commit('storeUser', {
-          token: response.data.token,
-          refreshToken: response.data.refreshToken,
-          id: response.data.id,
-          username: response.data.username
-        })
+    const refreshToken = Cookies.get('refreshToken')
+    if (refreshToken) {
+      const url = 'auth/refresh'
+      axiosApi.post(url, { refreshToken }).then((response) => {
+        commit('storeUser', response.data)
       })
-      .catch((error) => {
-        commit('removeUser')
-      })
+    }
   }
 }
 

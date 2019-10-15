@@ -1,8 +1,14 @@
 <template>
   <div>
+    <router-link to="/news/add">Dodaj newsa</router-link>
     <h1>This is news index</h1>
-    <h2>{{ connected }}</h2>
-    <h3>{{ res }}</h3>
+
+    <div v-for="news in news" :key="news.id">
+      <p>{{ news.id }} {{ news.username }}</p>
+      <p>{{ news.title }}</p>
+      <p>{{ news.introductionText }}</p>
+      <p>{{ news.expandText }}</p>
+    </div>
   </div>
 </template>
 
@@ -12,21 +18,22 @@
   export default {
     data() {
       return {
-        connected: false,
-        res: ''
+        news: []
       }
     },
     methods: {
 
     },
     mounted() {
-      const url = 'test'
+      const url = 'news'
       axiosApi.get(url).then(response => {
-        // this.res = response.data.posts
-        this.res = response
-        this.connected = true
+        const newsData = response.data
+        newsData.forEach((news) => {
+          console.log(news)
+          this.news.push(news)
+        })
       }).catch(err => {
-        this.res = err
+        console.log(err)
       })
     }
   }

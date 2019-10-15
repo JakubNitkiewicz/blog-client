@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './components/news/Index.vue'
+
+import AuthRoutes from './routes/auth'
+import UserRoutes from './routes/user'
+import NewsRoutes from './routes/news'
 
 Vue.use(Router)
 
@@ -8,11 +11,9 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
+    ...AuthRoutes,
+    ...UserRoutes,
+    ...NewsRoutes,
     {
       path: '/about',
       name: 'about',
@@ -21,31 +22,6 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "about" */ './views/About.vue')
-    },
-    {
-      path: '/user',
-      name: 'user',
-      component: () => import('./components/user/UserList.vue')
-    },
-    {
-      path: '/user/:id',
-      name: 'userDetails',
-      component: () => import('./components/user/UserDetails.vue')
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('./components/auth/Login.vue')
-    },
-    {
-      path: '/logout',
-      name: 'logout',
-      component: () => import('./components/auth/Logout.vue')
-    },
-    {
-      path: '/signup',
-      name: 'signUp',
-      component: () => import('./components/auth/SignUp.vue')
     }
   ]
 })
