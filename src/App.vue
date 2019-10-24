@@ -3,7 +3,7 @@
     <app-header></app-header>
 
     <v-content id="home">
-      <v-container mx-auto pt-4 pb-0>
+      <v-container mx-auto>
         <router-view />
       </v-container>
     </v-content>

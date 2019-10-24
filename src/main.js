@@ -6,6 +6,12 @@ import vuetify from './plugins/vuetify'
 import '@babel/polyfill'
 require('dotenv').config()
 
+
+import filters from './filters'
+for(let filter in filters) {
+  Vue.filter(filter, filters[filter]);
+}
+
 Vue.config.productionTip = false
 
 new Vue({

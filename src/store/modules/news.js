@@ -3,9 +3,7 @@ import router from '../../router'
 
 const state = {}
 
-const mutations = {
-
-}
+const mutations = {}
 
 const actions = {
   addNews({ commit }, payload) {
@@ -25,7 +23,6 @@ const actions = {
 }
 
 const getters = {}
-
 
 export default {
   state,

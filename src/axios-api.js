@@ -33,9 +33,7 @@ instance.interceptors.response.use(
   (error) => {
     const originalRequest = error.config
     if (error.response.status !== 401) {
-      return new Promise((resolve, reject) => {
-        reject(error)
-      })
+      return error
     }
 
     // Redirect to /logout if refresh didnt work

@@ -1,6 +1,10 @@
 # khorinis-client
 
-## Project setup
+## Get started
+You must have Node.js installed
+
+### Project setup
+You have to rename .env.default to .env default and fill API url. Default is localhost at port 3300 which is the same as the port set as default on my API configuration running on localhost. After you are done run: 
 ```
 npm install
 ```
@@ -14,21 +18,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
