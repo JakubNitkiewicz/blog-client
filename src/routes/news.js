@@ -1,7 +1,9 @@
+import Index from '@/components/news/Index.vue'
+
 export default [
   {
     path: '/',
-    component: () => import('@/components/news/Index.vue')
+    component: Index
   },
   {
     path: '/news/add',
